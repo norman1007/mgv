@@ -25,15 +25,17 @@ exports.postAProduct = (req, res, next) => {
 
 };
 
-exports.getAllProducts = (req, res, next) => {
-    let product = {
-        title: 'Item 1',
-        description: 'fhewfiusdhfiudsfhdsiufhsud',
-        remark: 'skfodsnfsdngsdijndsjvndfjdfn',
-        quantity: 30,
-        price: 'RM 5000.00',
-        amount: 'RM 15,000.00'
-    }
+exports.getAllProducts = async (req, res, next) => {
+    
+    let product = await Product.find().exec();
 
     res.render('main/index', { product });
+};
+
+exports.getOneProduct = async (req, res, next) => {
+
+    let p = await Product.findOne({slug: req.params.slug}).exec();
+
+    res.render('main/productData', { p });
+
 };
